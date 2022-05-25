@@ -1,5 +1,23 @@
-[
-    {
+[	
+	
+	{
+        "category_name": "Projet TUT Démo",
+        "samples": [
+            {
+                "name": "Objet 2D",
+                "path": "00_Demo_1_Objet2D/index.html",
+                "requiredFeatures": [
+                    "image_tracking"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            }
+        ]
+    },
+	
+	{
         "category_name": "Image Tracking",
         "samples": [
             {

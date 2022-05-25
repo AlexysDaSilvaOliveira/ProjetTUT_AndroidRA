@@ -18,13 +18,15 @@ import 'package:wikitude_flutter_app/poiDetails.dart';
 
 class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
   late ArchitectWidget architectWidget;
-  String wikitudeTrialLicenseKey = "rRcPFV/GWHOalFjHX9rP9TWGNRKVu8P4FSKvHtps1mo14SexXUmlVAebLNuKKr9OcOFD89RiMH03AY3eJL09d3Pbvb/V+AVYsQiBROkqqAhYe2lDojp++ZAPDx2RM9rJrD+1qYyUUbdUyKzIJXrU09u4tST9NdhER08njP2tMydTYWx0ZWRfX/p90uj/Yn9x/bcRTK6REaUg/GJT6uUKh7KfnXmxAtt0RI9WNjVPQFFjS1WFGtrRI43/VqyS0gnfsjmiov6fyrE+0aGBxJIzBNWupROE+AYw9LFkJ0gRN6KhsqvawIobvSPbVH+OaYanwnIV8q34LyTRujMzvJL+ke0hEfucf6eChYWe3O5kGCRD09oDnBzBLYnZotRjtuDb2eiHksj28kNuHJTlWItLA4A5Xjri7I1FmnCnTYezZfS2EHHazgOwfYAx+RMTSDXkdjrfradWo4kQFlERljYr1fXTh0T9s19r9FJTeao5/4UbUqcAW8mu71LoIQ5i2gJLDEp4d7xBEBaSznQ2TI4DSNW13lGlTXx8Ma47sFk4uxcxNy1S56RC1bPXA/iJGudxQrGMlhrYuwYcbEpKqEAqRB3xCZKV0M/69hlcZTreu3+1LbtYpLBFQ9GGMPC5FMjzVt29UFSVFyChB6PJlfVrpXbyvlq7ZFKWPc77HKIUyVhx5cSuI19pMxoTPiK5FfcuD7NeUJISK2loWzM/Cd5kvjqCZf0mGJ4zs9iwAQrkhpBGr07lwyAKJ0wH4ybZIdFXb69uZHnp9YnibYF6cuq5L+66lNPRicm1ojF46Sc6SkiVeZDfS6J1f2UOL1ymEMi3eH7pc8+AQ5JUn7XJWr8xIcYTlBa4HkJkRV7ire2Daij3cNywrcVv1GuReHLyW+UipWGPKrvY8IONHmkLEuAgdU9WupbmVdt24Cjn2s1n/ecIIKIVm9xgvdd5n4DHXKsOOWY03gp43g/5jgTJdl1PNwaVIvnwC1zMchAL5Ld49im8pcZbYiQC/MQqAdixxpORPZ0i6j0TM86K7P6DgSxmMNP/SG4vDx0m9mxvCIzvyevNl69Rc2yRToAwY1yGHMHyT2LwWr1NDhhW620ALR/u8gycvRhICYmISCwuCEBuSK+2UyKuKHk50gCr+xfLenxYshOJC+3dyGgBKXMkh/T8i0vKIBaKX5LcD0BY+msO4h/vrb4dMB61qzxCuJM8ax6O5tuQc4u5WOi/6XrAIRFTCqLMST8U6JKN689s70FJtvQYm0DpbPfYTOfeA53B5fphfsTMQqXFwKPhVLczCoWftmlLhHb/NcmNmCHnTp/Mm9yObyNsiG3oQ1Wbb1a9eMOcJ5y/Wvpi0RSYGwIfJcIIknvJIwPphZ3AJ3K9x/M89kct/J65XZMAMdnM1FbtLRpgKUVAUIUJ/E6V03QP/ElUHHukYjbXABWs/fJ/6uy9E4aXjbmzJQ6I9VKQ1uUsT2Oh8585HoXp6LLiFxADdRSIllJBtuMCmgfrd06qQ/q9wu8xFzvJYBeIT6xlCbsBXgdm";
+  String wikitudeTrialLicenseKey =
+      "e0xAEbiZCV85XLaHp9+24YF21btgF4DsyXOnPYMWAhgrQlUcH+0rYA8vibrYuOOx31ikmAm59kLoCTPapCH8h6w17gl/o0G+V9IM/0owMpbkbhd50YSgCzSCrvnkQ6juG21H9JJBNJUbD9mgKKx/gWj8RDEM59z/0APIvRn4dwVTYWx0ZWRfXwDZ6vU/k19Dlz6pqNcX2esuIhXDIEzo1KPjSRCTenQw7xdpUD9uABmkVrh+Iq9Hz16+q4Vnaqu2ggOTc1dJxlQN4lZ/ylWjFUCQHQXwzv8jdw8+5zVCq/PJheTvqYRPyJVjsbXmSSnRIMCR1CO0HUc1t1FGRw/O5BZyWAYZ9ypLG5W5Re6T1uaCqXMfGhcKTTsAG7SYA7Ilo96uYMJ2LpyfdPzUJ/437oTCrsanmN6YEAh690OCFyqlLiIAk57+1DHRc9/u/dA+Qd6RT3USc/6MjODG+2sSQbcysjO4veY5qugC8hZjTc3LSmF5oXfjC/IImGTXhD8Qfp05ChU57ROiWvWuMlzdvyubMhR6lGz4+TWOhIYUXcvO5Yiz8OS38HTVxN60nGCnbc3Mo/Z2BQ+aKLP7LoIuJoonirAgtOu1wflE3/hQNSQKOq6ZKaQW/8nj14+FLAyFpxgCLiNMPC/VDJLa3Z5NkibmB3n6gn2EmkBN/lzKqE90cuiay7aJLnCpmj/4gpMUDDc41muu4kjUFfILbYLv7z1Wta/sm1iBvO1fLdRTNOidbzeTCB6XHpZ2FNTu9zaTiklqGnKjqwVBZKfg3xnSXzW+Ok5iYZqS7vj7ssRu2z89CzZhw0EpNuSJ9IL1R68Vt5r2QsyiFaNOr3sPLPVLHpinmlf20b4mJo5nrmwbbRGn2Eq8TDkGnK8v8T8xagLw";
   Sample sample;
   String loadPath = "";
   bool loadFailed = false;
 
   ArViewState({required this.sample}) {
-    if(this.sample.path.contains("http://") || this.sample.path.contains("https://")) {
+    if (this.sample.path.contains("http://") ||
+        this.sample.path.contains("https://")) {
       loadPath = this.sample.path;
     } else {
       loadPath = "samples/" + this.sample.path;
@@ -73,37 +75,39 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(sample.name)),
-      body: WillPopScope(
-        onWillPop: () async {
-          if(defaultTargetPlatform == TargetPlatform.android && !loadFailed) {
-            bool? canWebViewGoBack = await this.architectWidget.canWebViewGoBack();
-            if (canWebViewGoBack != null) {
-              return !canWebViewGoBack;
+        appBar: AppBar(title: Text(sample.name)),
+        body: WillPopScope(
+          onWillPop: () async {
+            if (defaultTargetPlatform == TargetPlatform.android &&
+                !loadFailed) {
+              bool? canWebViewGoBack =
+                  await this.architectWidget.canWebViewGoBack();
+              if (canWebViewGoBack != null) {
+                return !canWebViewGoBack;
+              } else {
+                return true;
+              }
             } else {
               return true;
             }
-          } else {
-            return true;
-          }
-        },
-        child: Container(
-          decoration: BoxDecoration(color: Colors.black),
-          child: architectWidget),
-        )
-    );
+          },
+          child: Container(
+              decoration: BoxDecoration(color: Colors.black),
+              child: architectWidget),
+        ));
   }
 
   Future<void> onArchitectWidgetCreated() async {
     this.architectWidget.load(loadPath, onLoadSuccess, onLoadFailed);
     this.architectWidget.resume();
 
-    if(sample.requiredExtensions.contains("application_model_pois")) {
+    if (sample.requiredExtensions.contains("application_model_pois")) {
       List<Poi> pois = await ApplicationModelPois.prepareApplicationDataModel();
-      this.architectWidget.callJavascript("World.loadPoisFromJsonData(" + jsonEncode(pois) + ");");
+      this.architectWidget.callJavascript(
+          "World.loadPoisFromJsonData(" + jsonEncode(pois) + ");");
     }
-    
-    if((sample.requiredExtensions.contains("screenshot") ||
+
+    if ((sample.requiredExtensions.contains("screenshot") ||
         sample.requiredExtensions.contains("save_load_instant_target") ||
         sample.requiredExtensions.contains("native_detail"))) {
       this.architectWidget.setJSONObjectReceivedCallback(onJSONObjectReceived);
@@ -111,19 +115,19 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
   }
 
   Future<void> onJSONObjectReceived(Map<String, dynamic> jsonObject) async {
-    if(jsonObject["action"] != null){
-      switch(jsonObject["action"]) {
+    if (jsonObject["action"] != null) {
+      switch (jsonObject["action"]) {
         case "capture_screen":
           captureScreen();
           break;
         case "present_poi_details":
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PoiDetailsWidget(
-              id: jsonObject["id"],
-              title: jsonObject["title"],
-              description: jsonObject["description"]
-            )),
+            MaterialPageRoute(
+                builder: (context) => PoiDetailsWidget(
+                    id: jsonObject["id"],
+                    title: jsonObject["title"],
+                    description: jsonObject["description"])),
           );
           break;
         case "save_current_instant_target":
@@ -131,7 +135,11 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
           final filePath = fileDirectory.path;
           final file = File('$filePath/SavedAugmentations.json');
           file.writeAsString(jsonObject["augmentations"]);
-          this.architectWidget.callJavascript("World.saveCurrentInstantTargetToUrl(\"" + filePath + "/SavedInstantTarget.wto" + "\");");
+          this.architectWidget.callJavascript(
+              "World.saveCurrentInstantTargetToUrl(\"" +
+                  filePath +
+                  "/SavedInstantTarget.wto" +
+                  "\");");
           break;
         case "load_existing_instant_target":
           final fileDirectory = await getApplicationDocumentsDirectory();
@@ -140,24 +148,33 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
           String augmentations;
           try {
             augmentations = await file.readAsString();
-          } catch(e) {
+          } catch (e) {
             augmentations = "null";
           }
-          this.architectWidget.callJavascript("World.loadExistingInstantTargetFromUrl(\"" + filePath + "/SavedInstantTarget.wto" + "\"," + augmentations + ");");
-          break;  
+          this.architectWidget.callJavascript(
+              "World.loadExistingInstantTargetFromUrl(\"" +
+                  filePath +
+                  "/SavedInstantTarget.wto" +
+                  "\"," +
+                  augmentations +
+                  ");");
+          break;
       }
     }
   }
-  
+
   Future<void> captureScreen() async {
-    WikitudeResponse captureScreenResponse = await this.architectWidget.captureScreen(true, "");
-    if(captureScreenResponse.success) {
-      this.architectWidget.showAlert("Success", "Image saved in: " + captureScreenResponse.message);
+    WikitudeResponse captureScreenResponse =
+        await this.architectWidget.captureScreen(true, "");
+    if (captureScreenResponse.success) {
+      this.architectWidget.showAlert(
+          "Success", "Image saved in: " + captureScreenResponse.message);
     } else {
-      if(captureScreenResponse.message.contains("permission")) {
-        this.architectWidget.showAlert("Error", captureScreenResponse.message, true);
-      }
-      else {
+      if (captureScreenResponse.message.contains("permission")) {
+        this
+            .architectWidget
+            .showAlert("Error", captureScreenResponse.message, true);
+      } else {
         this.architectWidget.showAlert("Error", captureScreenResponse.message);
       }
     }
@@ -174,7 +191,6 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
 }
 
 class ArViewWidget extends StatefulWidget {
-
   final Sample sample;
 
   ArViewWidget({

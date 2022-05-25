@@ -257,4 +257,8 @@ flutter:
     - samples/01_ImageTracking_1_ImageOnTarget/js/
     - samples/01_ImageTracking_1_ImageOnTarget/css/
     - samples/01_ImageTracking_1_ImageOnTarget/assets/
+    - samples/00_Demo_1_Objet2D/
+    - samples/00_Demo_1_Objet2D/js/
+    - samples/00_Demo_1_Objet2D/css/
+    - samples/00_Demo_1_Objet2D/assets/
     
