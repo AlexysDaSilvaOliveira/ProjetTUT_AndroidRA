@@ -93,6 +93,7 @@ class MyAppState extends State<MainMenu> {
                         ),
                         onPressed: () {
                           //click sur le bouton de démo 3D
+                          launchActivityAR(categories, 1);
                         },
                       ),
                     ),
