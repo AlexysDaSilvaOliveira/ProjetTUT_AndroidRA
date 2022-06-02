@@ -1,20 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wakelock/wakelock.dart';
-import 'applicationModelPois.dart';
-import 'poi.dart';
-
 import 'sample.dart';
-
 import 'package:path_provider/path_provider.dart';
-
 import 'package:augmented_reality_plugin_wikitude/architect_widget.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
-import 'package:wikitude_flutter_app/poiDetails.dart';
 
 class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
   late ArchitectWidget architectWidget;
@@ -24,6 +16,7 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
   String loadPath = "";
   bool loadFailed = false;
 
+  ///chargement de l'expérience
   ArViewState({required this.sample}) {
     if (this.sample.path.contains("http://") ||
         this.sample.path.contains("https://")) {
@@ -33,6 +26,7 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
     }
   }
 
+  /// état intial de l'activité
   @override
   void initState() {
     super.initState();
@@ -58,6 +52,7 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
     super.dispose();
   }
 
+  /// Permet de suivre le changement d'état de l'activité
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
@@ -101,12 +96,6 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
     this.architectWidget.load(loadPath, onLoadSuccess, onLoadFailed);
     this.architectWidget.resume();
 
-    if (sample.requiredExtensions.contains("application_model_pois")) {
-      List<Poi> pois = await ApplicationModelPois.prepareApplicationDataModel();
-      this.architectWidget.callJavascript(
-          "World.loadPoisFromJsonData(" + jsonEncode(pois) + ");");
-    }
-
     if ((sample.requiredExtensions.contains("screenshot") ||
         sample.requiredExtensions.contains("save_load_instant_target") ||
         sample.requiredExtensions.contains("native_detail"))) {
@@ -120,16 +109,7 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
         case "capture_screen":
           captureScreen();
           break;
-        case "present_poi_details":
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => PoiDetailsWidget(
-                    id: jsonObject["id"],
-                    title: jsonObject["title"],
-                    description: jsonObject["description"])),
-          );
-          break;
+
         case "save_current_instant_target":
           final fileDirectory = await getApplicationDocumentsDirectory();
           final filePath = fileDirectory.path;
@@ -163,6 +143,7 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
     }
   }
 
+  ///Capture d'écran
   Future<void> captureScreen() async {
     WikitudeResponse captureScreenResponse =
         await this.architectWidget.captureScreen(true, "");
@@ -180,10 +161,12 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
     }
   }
 
+  /// Réussite du chargement de l'expérience
   Future<void> onLoadSuccess() async {
     loadFailed = false;
   }
 
+  /// Echec du chargement de l'expérience
   Future<void> onLoadFailed(String error) async {
     loadFailed = true;
     this.architectWidget.showAlert("Failed to load Architect World", error);

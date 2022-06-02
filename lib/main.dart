@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wikitude_flutter_app/customUrl.dart';
 
 import 'arview.dart';
 import 'category.dart';
-import 'custom_expansion_tile.dart';
 import 'sample.dart';
 
 import 'package:augmented_reality_plugin_wikitude/wikitude_plugin.dart';
@@ -17,11 +15,11 @@ void main() {
   runApp(MyApp());
 }
 
-//chargement des templates
 Future<String> _loadSamplesJson() async {
   return await rootBundle.loadString('samples/samples.json');
 }
 
+//chargement des expériences
 Future<List<Category>> _loadSamples() async {
   String samplesJson = await _loadSamplesJson();
   List<dynamic> categoriesFromJson = json.decode(samplesJson);
@@ -53,14 +51,27 @@ class MainMenu extends StatefulWidget {
   MyAppState createState() => new MyAppState();
 }
 
+/// charge le menu et l'affiche si les expériences ont bien été récupérées
+/// sinon renvoi un message d'erreur
 class MyAppState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Projet TUT RA'),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: popupMenuSelectedItem,
+            itemBuilder: (BuildContext context) {
+              return PopupMenuItems.items.map((String item) {
+                return PopupMenuItem<String>(value: item, child: Text(item));
+              }).toList();
+            },
+          )
+        ],
       ),
       body: FutureBuilder<List<Category>>(
+        //chargement asynchrone des expériences de RA
         future: _loadSamples(),
         builder: (context, snapshot) {
           final categories = snapshot.data;
@@ -111,6 +122,38 @@ class MyAppState extends State<MainMenu> {
     );
   }
 
+  ///clic sur un élément du menu dans la toolbar
+  void popupMenuSelectedItem(String item) {
+    switch (item) {
+      case PopupMenuItems.appInformation:
+        _showAppInformation();
+        break;
+    }
+  }
+
+  ///récupération et affichage des informations sur l'application
+  Future<void> _showAppInformation() async {
+    String sdkVersion = await WikitudePlugin.getSDKVersion();
+
+    WikitudeSDKBuildInformation sdkBuildInformation =
+        await WikitudePlugin.getSDKBuildInformation();
+
+    String flutterVersion = "3.0.1";
+
+    String message =
+        "Build configuration: ${sdkBuildInformation.buildConfiguration}" +
+            "\n-Build date: ${sdkBuildInformation.buildDate}" +
+            "\n-Build number: ${sdkBuildInformation.buildNumber}" +
+            "\n-Build version: $sdkVersion" +
+            "\n-Flutter version: $flutterVersion" +
+            "\n\n-Développeurs : " +
+            "\n-DA SILVA OLIVEIRA Alexys / \n-DESTRUEL Jean-Georges /" +
+            "\n-FRICOU Enzo / \n-SEQUIER Théo";
+
+    _showDialog("Informations sur l'application", message);
+  }
+
+  //récupère l'action de click
   void launchActivityAR(List<Category>? categories, index) {
     if (categories != null) {
       Sample sample = categories[index].samples[0];
@@ -133,14 +176,19 @@ class MyAppState extends State<MainMenu> {
     }
   }
 
+  /// Vérifie que l'appareil dispose des fonctionnalités requises pour
+  /// lancer l'expérience de RA
   Future<WikitudeResponse> _isDeviceSupporting(List<String> features) async {
     return await WikitudePlugin.isDeviceSupporting(features);
   }
 
+  /// vérifie que les permissions nécéssaire soient accordées sinon
+  /// ouvre une popup de demande
   Future<WikitudeResponse> _requestARPermissions(List<String> features) async {
     return await WikitudePlugin.requestARPermissions(features);
   }
 
+  /// fonctione qui permet d'afficher la page de l'expérience de RA
   Future<void> _pushArView(Sample sample) async {
     WikitudeResponse permissionsResponse =
         await _requestARPermissions(sample.requiredFeatures);
@@ -154,6 +202,7 @@ class MyAppState extends State<MainMenu> {
     }
   }
 
+  ///Affichage d'une boite de dialogue
   void _showDialog(String title, String message) {
     showDialog(
         context: context,
@@ -173,22 +222,23 @@ class MyAppState extends State<MainMenu> {
         });
   }
 
+  /// Affichage d'une fenêtre d'erreur de permissions
   void _showPermissionError(String message) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Permissions required"),
+            title: Text("Permissions requises"),
             content: Text(message),
             actions: <Widget>[
               TextButton(
-                child: const Text('Cancel'),
+                child: const Text('Retour'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               TextButton(
-                child: const Text('Open settings'),
+                child: const Text('Ouvrir les paramètres'),
                 onPressed: () {
                   Navigator.of(context).pop();
                   WikitudePlugin.openAppSettings();
@@ -198,4 +248,10 @@ class MyAppState extends State<MainMenu> {
           );
         });
   }
+}
+
+class PopupMenuItems {
+  static const String appInformation = "Informations sur l'application";
+
+  static const List<String> items = <String>[appInformation];
 }
