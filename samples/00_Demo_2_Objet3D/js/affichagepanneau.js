@@ -3,8 +3,8 @@ var World = {
     drawables: [],
 
     init: function initFn() {
-        World.createPanneau();
-        World.createTracker();
+        World.createPanneau(); //création du modèle
+        World.createTracker(); //création du tracker 
     },
 		
 	/*
@@ -12,8 +12,8 @@ var World = {
 	*/
     createPanneau: function createPanneauFn() {
 
-        var panneau = World.getPanneau();
-        World.drawables.push(panneau);
+        var panneau = World.getPanneau(); //définition du modèle
+        World.drawables.push(panneau); //ajout aux drawables
     },
 	
 	/*

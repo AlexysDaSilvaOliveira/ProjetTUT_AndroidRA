@@ -173,6 +173,7 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
   }
 }
 
+/// Le widget permettant d'intérpréter les augmentations
 class ArViewWidget extends StatefulWidget {
   final Sample sample;
 
