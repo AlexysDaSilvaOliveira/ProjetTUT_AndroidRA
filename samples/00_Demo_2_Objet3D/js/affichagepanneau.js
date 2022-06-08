@@ -3,23 +3,23 @@ var World = {
     drawables: [],
 
     init: function initFn() {
-        World.createCones();
+        World.createPanneau();
         World.createTracker();
     },
 		
 	/*
 		Créer le modèle et l'ajoute à la liste des drawables
 	*/
-    createCones: function createConesFn() {
+    createPanneau: function createPanneauFn() {
 
-        var cone = World.getCone();
-        World.drawables.push(cone);
+        var panneau = World.getPanneau();
+        World.drawables.push(panneau);
     },
 	
 	/*
 		Créer l'augmentation correspondant au modèle
 	*/
-    getCone: function getConeFn() {
+    getPanneau: function getPanneauFn() {
 		
 		/*
             On dit à l'application de charger un modèle 3D
